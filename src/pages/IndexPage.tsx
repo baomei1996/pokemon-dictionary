@@ -20,7 +20,7 @@ const IndexPage: React.FC = () => {
     const fetchPokemonList = async (): Promise<void> => {
         try {
             // 페이지 번호와 오프셋을 이용해 포켓몬 리스트를 받아온다.
-            const offset = page * LIST_LIMIT;
+            const offset = (page - 1) * LIST_LIMIT;
             const { data } = await getPokemonList(LIST_LIMIT, offset);
 
             // 받아온 리스트를 하나씩 순회하며 각 포켓몬의 상세 정보를 받아온다.
