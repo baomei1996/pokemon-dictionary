@@ -4,6 +4,8 @@ import { setPage, setPokemonList } from "../redux/pokemonDictionarySlice";
 import { getPokemonList, getPokemonInfo } from "../api";
 import { LIST_LIMIT } from "../static/constants";
 import { PokemonInfo } from "../types";
+import styles from "./IndexPage.module.css";
+import PokemonCard from "../components/PokemonCard";
 
 const IndexPage: React.FC = () => {
     const page = useAppSelector((state) => state.page);
@@ -38,7 +40,18 @@ const IndexPage: React.FC = () => {
         }
     };
 
-    return <div>IndexPage</div>;
+    return (
+        <div className={styles.container}>
+            <div className={styles.list}>
+                {pokemonList.map((pokemonInfo) => (
+                    <PokemonCard
+                        pokemonInfo={pokemonInfo}
+                        key={pokemonInfo.id}
+                    />
+                ))}
+            </div>
+        </div>
+    );
 };
 
 export default IndexPage;

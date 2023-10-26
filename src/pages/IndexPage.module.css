@@ -1,0 +1,16 @@
+.container {
+    padding: 15px;
+}
+
+.list {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 50px 30px;
+    margin-top: 130px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(206px, 1fr));
+    gap: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
