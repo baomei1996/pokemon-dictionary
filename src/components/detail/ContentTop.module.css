@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #212121;
+    gap: 10px;
+}
+
+.container h3 {
+    margin: 0;
+}
+
+.container span {
+    color: #3e3e3e;
+}
