@@ -10,6 +10,7 @@ import { getPokemonInfo, getPokemonSpecies, getEvolutionChain } from "../api";
 import ContentTop from "../components/detail/ContentTop";
 import ContentCenter from "../components/detail/ContentCenter";
 import ContentBottom from "../components/detail/ContentBottom";
+import MetaTag from "../components/MetaTag";
 
 const DetailPage: React.FC = () => {
     const { name } = useParams<{ name: string }>();
@@ -54,13 +55,19 @@ const DetailPage: React.FC = () => {
         return language ? language.name : "";
     };
 
-    console.log(getKrName());
-
     if (!pokemonInfo || !pokemonSpecies || !evolutionChain)
         return <div>loading...</div>;
 
     return (
         <div className={styles.container}>
+            <MetaTag
+                title={`포켓몬 도감 / ${pokemonInfo.name}`}
+                description={`내가 갖고싶은 포켓몬은 바로! ${pokemonInfo.name}`}
+                keywords={`"포켓몬 도감 | 포켓몬 게임 | 포켓몬 | ${pokemonInfo.name}`}
+                imgSrc={
+                    pokemonInfo.sprites.other["official-artwork"].front_default
+                }
+            />
             <div className={styles.content}>
                 <ContentTop
                     krName={getKrName()}

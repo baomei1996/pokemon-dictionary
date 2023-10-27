@@ -9,6 +9,7 @@ import PokemonCard from "../components/PokemonCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LoadingIndicator from "../components/LoadingIndicator";
 import SearchPokemon from "../components/SearchPokemon";
+import MetaTag from "../components/MetaTag";
 
 const IndexPage: React.FC = () => {
     const page = useAppSelector((state) => state.page);
@@ -73,6 +74,12 @@ const IndexPage: React.FC = () => {
 
     return (
         <div className={styles.container}>
+            <MetaTag
+                title="포켓몬 도감"
+                description="세상에 모든 포켓몬을 한번에 모아놓은 포켓몬 사전"
+                keywords="포켓몬 도감 | 포켓몬 게임 | 포켓몬"
+                imgSrc="https://occ-0-2794-2219.1.nflxso.net/dnm/api/v6/E8vDc_W8CLv7-yMQu8KMEC7Rrr8/AAAABf_vkYSzY2EsbRFAOJOS3_ZdreU4YoqzdzVZf-f1CEP9ndmI3705aHteXy3ZD7tLH4YbavoJT3lPK9luZDLgQxhQOBw1tLuBzxFG.jpg?r=b99"
+            />
             <SearchPokemon onSubmit={onSubmitHandler} />
             {searchedPokemon ? (
                 <div className={styles.list}>
