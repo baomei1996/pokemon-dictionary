@@ -8,12 +8,16 @@ import styles from "./IndexPage.module.css";
 import PokemonCard from "../components/PokemonCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LoadingIndicator from "../components/LoadingIndicator";
+import SearchPokemon from "../components/SearchPokemon";
 
 const IndexPage: React.FC = () => {
     const page = useAppSelector((state) => state.page);
     const pokemonList = useAppSelector((state) => state.pokemonList);
     const dispatch = useAppDispatch();
     const [hasMoreItem, setHasMoreItem] = useState<boolean>(true);
+    const [searchedPokemon, setSearchedPokemon] = useState<PokemonInfo | null>(
+        null
+    );
 
     useEffect(() => {
         fetchPokemonList();
@@ -48,23 +52,49 @@ const IndexPage: React.FC = () => {
         }
     };
 
+    const onSubmitHandler = async (search: string): Promise<void> => {
+        try {
+            if (search === "") {
+                setSearchedPokemon(null);
+                return;
+            }
+
+            // 검색한 포켓몬의 상세 정보를 받아온다.
+            const { data: pokemonInfo } = await getPokemonInfo(search);
+            setSearchedPokemon(pokemonInfo);
+        } catch (err: any) {
+            console.error(err);
+            // 검색 결과가 없어 404 에러가 발생하는 경우 에러 메시지를 띄운다.
+            if (err.response.status === 404) {
+                alert("검색 결과가 없습니다.");
+            }
+        }
+    };
+
     return (
         <div className={styles.container}>
-            <InfiniteScroll
-                dataLength={pokemonList.length}
-                next={fetchPokemonList}
-                hasMore={hasMoreItem}
-                loader={<LoadingIndicator />}
-            >
+            <SearchPokemon onSubmit={onSubmitHandler} />
+            {searchedPokemon ? (
                 <div className={styles.list}>
-                    {pokemonList.map((pokemonInfo) => (
-                        <PokemonCard
-                            pokemonInfo={pokemonInfo}
-                            key={pokemonInfo.id}
-                        />
-                    ))}
+                    <PokemonCard pokemonInfo={searchedPokemon} />
                 </div>
-            </InfiniteScroll>
+            ) : (
+                <InfiniteScroll
+                    dataLength={pokemonList.length}
+                    next={fetchPokemonList}
+                    hasMore={hasMoreItem}
+                    loader={<LoadingIndicator />}
+                >
+                    <div className={styles.list}>
+                        {pokemonList.map((pokemonInfo) => (
+                            <PokemonCard
+                                pokemonInfo={pokemonInfo}
+                                key={pokemonInfo.id}
+                            />
+                        ))}
+                    </div>
+                </InfiniteScroll>
+            )}
         </div>
     );
 };
