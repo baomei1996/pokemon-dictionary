@@ -46,13 +46,27 @@ const DetailPage: React.FC = () => {
         }
     };
 
+    const getKrName = (): string => {
+        const language = pokemonSpecies?.names.find(
+            (name) => name.language.name === "ko"
+        );
+
+        return language ? language.name : "";
+    };
+
+    console.log(getKrName());
+
     if (!pokemonInfo || !pokemonSpecies || !evolutionChain)
         return <div>loading...</div>;
 
     return (
         <div className={styles.container}>
             <div className={styles.content}>
-                <ContentTop name={pokemonInfo.name} id={pokemonInfo.id} />
+                <ContentTop
+                    krName={getKrName()}
+                    name={pokemonInfo.name}
+                    id={pokemonInfo.id}
+                />
                 <ContentCenter
                     pokemonInfo={pokemonInfo}
                     pokemonSpecies={pokemonSpecies}
