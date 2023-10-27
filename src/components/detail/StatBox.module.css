@@ -1,0 +1,10 @@
+.container {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #a4a4a4;
+    border-radius: 10px;
+}
+
+.stats {
+    margin-top: 5px;
+}
