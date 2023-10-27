@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    gap: 10px;
+}
+
+.container span {
+    font-weight: bold;
+}
+
+.container progress {
+    flex-grow: 1;
+}
